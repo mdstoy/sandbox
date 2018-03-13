@@ -36,8 +36,4 @@ public class ShellCommand {
         return "What is same Group?";
     }
 
-    @ShellMethod(value = "prefix test", prefix = "***")
-    public String prefix() {
-        return "What is prefix";
-    }
 }
