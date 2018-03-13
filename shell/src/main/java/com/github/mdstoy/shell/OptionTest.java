@@ -22,4 +22,9 @@ public class OptionTest {
         return param;
     }
 
+    @ShellMethod("camel case option parameter")
+    public String camelOption(String paramString) {
+        return paramString;
+    }
+
 }
