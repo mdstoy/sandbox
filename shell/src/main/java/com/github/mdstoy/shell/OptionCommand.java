@@ -5,7 +5,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 @ShellComponent
-public class OptionTest {
+public class OptionCommand {
 
     @ShellMethod(value = "default value", key = "default")
     public String defaultValue(@ShellOption(defaultValue = "Hello") String option) {
@@ -22,9 +22,18 @@ public class OptionTest {
         return param;
     }
 
+    @ShellMethod(value = "specify keys", prefix = "@@")
+    public String makeKey(@ShellOption({"-p", "--parameter"}) String param) {
+        return param;
+    }
+
     @ShellMethod("camel case option parameter")
     public String camelOption(String paramString) {
         return paramString;
     }
 
+    @ShellMethod("arity 3")
+    public int arity(@ShellOption(arity = 3) int[] params){
+        return params[0] + params[1] + params[2];
+    }
 }
