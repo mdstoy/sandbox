@@ -31,8 +31,7 @@ public class Combined {
             graphics2 = bufferedImage3.createGraphics();
             AffineTransform at = new AffineTransform();
             at.setToRotation(90 * Math.PI/180, 24d, 24d);
-            graphics2.setTransform(at);
-            graphics2.drawImage(bufferedImage3, 0, 0, null);
+            graphics2.drawImage(bufferedImage3, at, null);
             graphics1.drawImage(bufferedImage3, 48, 0, null);
 
         } finally {
