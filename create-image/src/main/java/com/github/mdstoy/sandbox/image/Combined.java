@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -27,11 +28,12 @@ public class Combined {
 
             graphics1.drawImage(bufferedImage2, 0, 0, null);
 
-            BufferedImage bufferedImage3 = ImageIO.read(new File("down.png"));
-            graphics2 = bufferedImage3.createGraphics();
+            BufferedImage bufferedImage3 = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
+            graphics2 = bufferedImage2.createGraphics();
             AffineTransform at = new AffineTransform();
-            at.setToRotation(90 * Math.PI/180, 24d, 24d);
-            graphics2.drawImage(bufferedImage3, at, null);
+            at.setToRotation(Math.toRadians(90), 24d, 24d);
+            AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+            op.filter(bufferedImage2, bufferedImage3);
             graphics1.drawImage(bufferedImage3, 48, 0, null);
 
         } finally {
