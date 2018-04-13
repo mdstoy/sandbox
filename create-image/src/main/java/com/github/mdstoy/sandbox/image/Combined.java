@@ -25,16 +25,14 @@ public class Combined {
 
             graphics1 = bufferedImage1.createGraphics();
 
-            int x = 0;
-            int y = 0;
-            graphics1.drawImage(bufferedImage2, x, y, null);
+            graphics1.drawImage(bufferedImage2, 0, 0, null);
 
             BufferedImage bufferedImage3 = ImageIO.read(new File("down.png"));
             graphics2 = bufferedImage3.createGraphics();
             AffineTransform at = new AffineTransform();
             at.setToRotation(90 * Math.PI/180, 24d, 24d);
             graphics2.setTransform(at);
-            graphics2.drawImage(new BufferedImage(48, 48, BufferedImage.TYPE_INT_RGB), null, 0, 0);
+            graphics2.drawImage(bufferedImage3, 0, 0, null);
             graphics1.drawImage(bufferedImage3, 48, 0, null);
 
         } finally {
