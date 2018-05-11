@@ -11,6 +11,7 @@ public class Combined {
 
     public static void main(String[] args) throws Exception {
         new Combined().execute();
+        new Combined().execute2();
     }
 
     public void execute() throws Exception{
@@ -34,6 +35,45 @@ public class Combined {
             AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
             op.filter(bufferedImage2, bufferedImage3);
             graphics1.drawImage(bufferedImage3, 48, 0, null);
+
+        } finally {
+
+            graphics1.dispose();
+            graphics2.dispose();
+        }
+
+        ImageIO.write(bufferedImage1, "png", new File("/tmp/" + System.currentTimeMillis() + ".png"));
+    }
+
+    public void execute2() throws Exception{
+
+        BufferedImage bufferedImage1 = ImageIO.read(new File("back.png"));
+        BufferedImage bufferedImage2 = ImageIO.read(new File("down.png"));
+
+        Graphics2D graphics1 = null;
+        Graphics2D graphics2 = null;
+
+        try {
+
+            // 読み込んだイメージを操作できるように
+            graphics1 = bufferedImage1.createGraphics();
+
+            // イメージを重ねる
+            graphics1.drawImage(bufferedImage2, 0, 0, null);
+
+            // 書き出し用
+            BufferedImage bufferedImage3 = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
+
+            graphics2 = bufferedImage2.createGraphics();
+            // 変換の設定
+            AffineTransform at = new AffineTransform();
+            at.setToRotation(Math.toRadians(90), 24d, 24d);
+
+            // 変換の実操作
+            AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+            // 変換元 -> 変換先
+            op.filter(bufferedImage2, bufferedImage3);
+            graphics1.drawImage(bufferedImage3, 92, 48, null);
 
         } finally {
 
