@@ -40,10 +40,9 @@ public class Combined {
             // 変換の実操作
             AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
             // 変換元 -> 変換先
+            bufferedImage2 = changeColor(bufferedImage2);
             op.filter(bufferedImage2, bufferedImage3);
             graphics1.drawImage(bufferedImage3, 92, 48, null);
-            bufferedImage3 = changeColor(bufferedImage3);
-            graphics1.drawImage(bufferedImage3, 48, 66, null);
 
         } finally {
 
@@ -56,15 +55,14 @@ public class Combined {
 
     private BufferedImage changeColor(BufferedImage image) {
         for(int i = 0; i < image.getHeight(); ++i) {
-            int rgb = image.getRGB(i, 24);
-            System.out.println(rgb + "/" + ((rgb >> 16) & 0xff) + "/" + ((rgb >> 8) & 0xff) + "/" + (rgb & 0xff));
             for(int j = 0; j < image.getWidth(); ++j) {
                 if (image.getRGB(i, j) == -16777216) {
-                    image.setRGB(i, j, (128 << 16) + (16 << 8) + 16);
+                    image.setRGB(i, j, (255 << 24) + (255 << 16) + (0 << 8) + 0);
+                } else {
+                    image.setRGB(i, j, 0);
                 }
             }
         }
-        System.out.println((128 << 16) + (16 << 8) + 16);
 
         return image;
     }
