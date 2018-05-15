@@ -24,6 +24,7 @@ public class Arrow {
         return new Arrow(imagePath);
     }
 
+    // FIXME : インスタンスの扱い
     public BufferedImage changeColor(int r, int g, int b) {
         for(int i = 0; i < image.getHeight(); ++i) {
             for(int j = 0; j < image.getWidth(); ++j) {
