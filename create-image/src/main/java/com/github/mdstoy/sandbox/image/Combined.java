@@ -16,10 +16,9 @@ public class Combined {
     public void execute() throws Exception{
 
         BufferedImage bufferedImage1 = ImageIO.read(new File("back.png"));
-        BufferedImage bufferedImage2 = ImageIO.read(new File("down.png"));
+        Arrow arrow = Arrow.of("down.png");
 
         Graphics2D graphics1 = null;
-        Graphics2D graphics2 = null;
 
         try {
 
@@ -27,43 +26,18 @@ public class Combined {
             graphics1 = bufferedImage1.createGraphics();
 
             // イメージを重ねる
-            graphics1.drawImage(bufferedImage2, 0, 0, null);
+            graphics1.drawImage(arrow.image, 0, 0, null);
 
-            // 書き出し用
-            BufferedImage bufferedImage3 = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
-
-            graphics2 = bufferedImage2.createGraphics();
-            // 変換の設定
-            AffineTransform at = new AffineTransform();
-            at.setToRotation(Math.toRadians(90), 24d, 24d);
-
-            // 変換の実操作
-            AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
             // 変換元 -> 変換先
-            bufferedImage2 = changeColor(bufferedImage2);
-            op.filter(bufferedImage2, bufferedImage3);
-            graphics1.drawImage(bufferedImage3, 92, 48, null);
+            arrow.changeColor(255, 0, 0);
+            graphics1.drawImage(arrow.rotate(90), 92, 48, null);
+            graphics1.drawImage(arrow.rotate(180), 48, 70, null);
 
         } finally {
 
             graphics1.dispose();
-            graphics2.dispose();
         }
 
         ImageIO.write(bufferedImage1, "png", new File("/tmp/" + System.currentTimeMillis() + ".png"));
-    }
-
-    private BufferedImage changeColor(BufferedImage image) {
-        for(int i = 0; i < image.getHeight(); ++i) {
-            for(int j = 0; j < image.getWidth(); ++j) {
-                if (image.getRGB(i, j) == -16777216) {
-                    image.setRGB(i, j, (255 << 24) + (255 << 16) + (0 << 8) + 0);
-                } else {
-                    image.setRGB(i, j, 0);
-                }
-            }
-        }
-
-        return image;
     }
 }
