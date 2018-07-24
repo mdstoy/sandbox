@@ -14,7 +14,7 @@ public class SampleBean {
     }
 
     public void run() {
-        System.out.println(configuration.getHoge());
+        System.out.println(configuration.getHogeCamel());
         System.out.println(configuration.getMoge());
     }
 }

@@ -6,19 +6,19 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "camel-case")
 @Component
 public class SampleConfiguration {
-    private String hoge;
+    private String hogeCamel;
     private String moge;
 
-    public String getHoge() {
-        return hoge;
+    public String getHogeCamel() {
+        return hogeCamel;
     }
 
     public String getMoge() {
         return moge;
     }
 
-    public void setHoge(String hoge) {
-        this.hoge = hoge;
+    public void setHogeCamel(String hogeCamel) {
+        this.hogeCamel = hogeCamel;
     }
 
     public void setMoge(String moge) {
