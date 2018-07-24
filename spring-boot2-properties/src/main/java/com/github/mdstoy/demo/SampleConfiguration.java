@@ -3,7 +3,7 @@ package com.github.mdstoy.demo;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "camel-case")
+@ConfigurationProperties(prefix = "camelCase")
 @Component
 public class SampleConfiguration {
     private String hogeCamel;
